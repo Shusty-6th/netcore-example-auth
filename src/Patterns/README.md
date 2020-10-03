@@ -1,0 +1,1 @@
+﻿Models located in a separated project for ckeck swagger xml including. 

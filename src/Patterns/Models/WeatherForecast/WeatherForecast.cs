@@ -1,6 +1,6 @@
 using System;
 
-namespace NetCoreAxampleAuth
+namespace NetCoreAxampleAuth.Patterns.Models.WeatherForecast
 {
     public class WeatherForecast
     {
