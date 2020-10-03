@@ -43,6 +43,8 @@ namespace NetCoreAxampleAuth
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
