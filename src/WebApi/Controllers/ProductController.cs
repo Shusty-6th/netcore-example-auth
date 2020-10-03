@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreAxampleAuth.Models.Common;
 using NetCoreAxampleAuth.Patterns.Models.Product;
 
 namespace NetCoreAxampleAuth.Controllers
@@ -95,6 +96,7 @@ namespace NetCoreAxampleAuth.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)] // TODO: Make ProducesResponseType Global Parameter or Automate
         public IActionResult Post([FromBody] Product product)
         {
             if (!product.IsGoodQuality)
