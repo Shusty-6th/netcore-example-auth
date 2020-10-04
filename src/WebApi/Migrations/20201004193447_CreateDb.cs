@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NetCoreAxampleAuth.Migrations
+namespace NetCoreExampleAuth.Migrations
 {
-    public partial class DatabaseCreation : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,7 +49,7 @@ namespace NetCoreAxampleAuth.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Companies",
+                name: "Products",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(nullable: false)
@@ -60,7 +60,7 @@ namespace NetCoreAxampleAuth.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companies", x => x.ProductId);
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +169,44 @@ namespace NetCoreAxampleAuth.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "7b5e8e61-093d-497f-8408-61162d399e8d", "29a10e07-269f-4e1a-8a80-f97702416abf", "Administrator", "ADMINISTRATOR" },
+                    { "3e489281-9523-44cc-8a56-01a77644aa52", "df6e5872-00dd-4a96-bf8b-382ddd68c77c", "Manager", "MANAGER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "fb859dc0-1e55-4cae-821b-9e3e863757b4", 0, "99784543-c63c-4a6d-8a81-24ab781230f4", "Admin@Admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEDO70tJRV+vau4JHA9AmY+P63Hc0ASlh23OvljrcKGoJy7JQthoL+3kn9mKaYV2Drg==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "admin" },
+                    { "5441637f-6290-4925-8afa-dab9254ea8a8", 0, "720fe847-7af3-4398-946c-83b4f069700c", "Manager@Manager.com", true, "Manager", "Manager", false, null, "MANAGER@MANAGER.COM", "MANAGER", "AQAAAAEAACcQAAAAEL4KbXrlwcuzybNWP6Yx9ryJKA47gOlm4ESA7TO0kqdcK287WlSAeBOhNpR58iTkNg==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "manager" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Color", "IsGoodQuality", "Name" },
+                values: new object[,]
+                {
+                    { 1, 2, true, "Bike" },
+                    { 2, 1, false, "Jogging pants" },
+                    { 3, 3, true, "Ball" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "fb859dc0-1e55-4cae-821b-9e3e863757b4", "7b5e8e61-093d-497f-8408-61162d399e8d" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "5441637f-6290-4925-8afa-dab9254ea8a8", "3e489281-9523-44cc-8a56-01a77644aa52" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -227,7 +265,7 @@ namespace NetCoreAxampleAuth.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

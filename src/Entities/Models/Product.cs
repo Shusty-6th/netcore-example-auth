@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace NetCoreAxampleAuth.Entities.Models.Product
+namespace NetCoreExampleAuth.Entities.Models
 {
     /// <summary>
     /// Product

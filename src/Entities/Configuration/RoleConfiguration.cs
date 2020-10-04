@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetCoreAxampleAuth.Entities.Configuration
+namespace NetCoreExampleAuth.Entities.Configuration
 {
     public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
     {
@@ -17,14 +17,14 @@ namespace NetCoreAxampleAuth.Entities.Configuration
             new IdentityRole
             {
                 Id = administratorRoleId,
-                Name = "Manager",
-                NormalizedName = "MANAGER"
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR"
             },
             new IdentityRole
             {
                 Id = managerRoleId,
-                Name = "Administrator",
-                NormalizedName = "ADMINISTRATOR"
+                Name = "Manager",
+                NormalizedName = "MANAGER"
             }
             );
         }

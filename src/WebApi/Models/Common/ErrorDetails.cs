@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreAxampleAuth.Models.Common
+namespace NetCoreExampleAuth.Models.Common
 {
     public class ErrorDetails
     {

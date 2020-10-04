@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreAxampleAuth.Models.Common;
 using NetCoreAxampleAuth.Patterns.Models.Product;
+using NetCoreExampleAuth.Models.Common;
 
-namespace NetCoreAxampleAuth.Controllers
+namespace NetCoreExampleAuth.Controllers
 {
     [Route("api/Product")]
     [ApiController]
@@ -39,10 +39,11 @@ namespace NetCoreAxampleAuth.Controllers
         /// Get all products
         /// </summary>
         /// <returns>Products</returns>
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetAllProducts()
         {
-            return Ok(this.products.AsEnumerable());
+            return Ok(products.AsEnumerable());
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace NetCoreAxampleAuth.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Product> GetProductById(int id)
         {
-            var result = this.products.FirstOrDefault(p => p.Id == id);
+            var result = products.FirstOrDefault(p => p.Id == id);
 
             if (id < 1)
             {
@@ -106,7 +107,7 @@ namespace NetCoreAxampleAuth.Controllers
             }
 
             product.Id = products.Count + 1;
-            this.products.Add(product);
+            products.Add(product);
 
             return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
 

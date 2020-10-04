@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NetCoreAxampleAuth.Entities.Configuration;
-using NetCoreAxampleAuth.Entities.Models;
-using NetCoreAxampleAuth.Entities.Models.Product;
+using NetCoreExampleAuth.Entities.Configuration;
+using NetCoreExampleAuth.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetCoreAxampleAuth.Entities
+namespace NetCoreExampleAuth.Entities
 {
     public class RepositoryContext : IdentityDbContext<User>
     {

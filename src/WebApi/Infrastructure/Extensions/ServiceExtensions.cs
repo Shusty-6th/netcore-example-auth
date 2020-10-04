@@ -5,8 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NetCoreAxampleAuth.Entities;
-using NetCoreAxampleAuth.Entities.Models;
+using NetCoreExampleAuth.Entities;
+using NetCoreExampleAuth.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +15,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetCoreAxampleAuth.Infrastructure.Extensions
+namespace NetCoreExampleAuth.Infrastructure.Extensions
 {
     public static class ServiceExtensions
     {
@@ -42,6 +42,36 @@ namespace NetCoreAxampleAuth.Infrastructure.Extensions
             .AddDefaultTokenProviders();
         }
 
+        public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            // better to get secret from server environment variable : Environment.GetEnvironmentVariable("SECRET");
+            var secretKey = jwtSettings.GetSection("secret").Value;
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    // The issuer is the actual server that created the token
+                    ValidateIssuer = true,
+                    // The receiver of the token is a valid recipient
+                    ValidateAudience = true,
+                    // The token has not expired
+                    ValidateLifetime = true,
+                    // The signing key is valid and is trusted by the server
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.GetSection("validIssuer").Value,
+                    ValidAudience = jwtSettings.GetSection("validAudience").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                };
+            });
+        }
+
         public static void ConfigureSwaggerDoc(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -54,7 +84,7 @@ namespace NetCoreAxampleAuth.Infrastructure.Extensions
                     }
                  );
 
-                foreach (var filePath in System.IO.Directory.GetFiles(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)), "*.xml"))
+                foreach (var filePath in Directory.GetFiles(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)), "*.xml"))
                 {
                     try
                     {
@@ -73,5 +103,19 @@ namespace NetCoreAxampleAuth.Infrastructure.Extensions
                 // c.EnableAnnotations();
             });
         }
+
+        public static void ConfigureCors(this IServiceCollection services) =>
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                builder
+                // or .WithOrigins("https://specificDomain.com")
+                .AllowAnyOrigin()
+                // or .WithMethods("GET", "POST", "DELETE", "PUT") 
+                .AllowAnyMethod()
+                // or .WithHeaders("accept", "contenttype")  
+                .AllowAnyHeader());
+            });
+
     }
 }

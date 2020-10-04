@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NetCoreExampleAuth.Entities.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;

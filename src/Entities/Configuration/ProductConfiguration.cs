@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NetCoreAxampleAuth.Entities.Models.Product;
+using NetCoreExampleAuth.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetCoreAxampleAuth.Entities.Configuration
+namespace NetCoreExampleAuth.Entities.Configuration
 {
     class ProductConfiguration : IEntityTypeConfiguration<Product>
     {

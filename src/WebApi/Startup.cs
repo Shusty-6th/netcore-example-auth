@@ -5,8 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,9 +16,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using NetCoreAxampleAuth.Infrastructure.Extensions;
+using NetCoreExampleAuth.BusinessLogic;
+using NetCoreExampleAuth.Infrastructure.Extensions;
 
-namespace NetCoreAxampleAuth
+namespace NetCoreExampleAuth
 {
     public class Startup
     {
@@ -33,8 +36,12 @@ namespace NetCoreAxampleAuth
             services.AddAuthentication();
             services.ConfigureIdentity();
 
+            // Authentication configuration (JWT)
+            services.ConfigureJWT(Configuration);
 
             services.ConfigureSqlContext(Configuration);
+
+            services.ConfigureCors();
 
             services.AddControllers();
 
@@ -42,6 +49,8 @@ namespace NetCoreAxampleAuth
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.ConfigureSwaggerDoc();
+
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +65,14 @@ namespace NetCoreAxampleAuth
 
             app.UseHttpsRedirection();
 
+            app.UseCors("CorsPolicy");
+            //app.UseStaticFiles();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
+
             app.UseRouting();
 
             // use authentication 
@@ -67,10 +84,8 @@ namespace NetCoreAxampleAuth
                 endpoints.MapControllers();
             });
 
-
             // swagger
             app.UseSwaggerWithUi();
         }
-
     }
 }

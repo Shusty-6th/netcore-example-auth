@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NetCoreAxampleAuth.Entities;
+using NetCoreExampleAuth.Entities;
 
-namespace NetCoreAxampleAuth.Migrations
+namespace NetCoreExampleAuth.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20201004164512_SeedDefaultUsers")]
-    partial class SeedDefaultUsers
+    [Migration("20201004193447_CreateDb")]
+    partial class CreateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,16 +51,16 @@ namespace NetCoreAxampleAuth.Migrations
                         new
                         {
                             Id = "7b5e8e61-093d-497f-8408-61162d399e8d",
-                            ConcurrencyStamp = "baa095eb-381d-4d3c-a545-73a3806fe0ba",
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
+                            ConcurrencyStamp = "29a10e07-269f-4e1a-8a80-f97702416abf",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "3e489281-9523-44cc-8a56-01a77644aa52",
-                            ConcurrencyStamp = "37d34571-5475-40a2-aadc-7dc5364c304c",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
+                            ConcurrencyStamp = "df6e5872-00dd-4a96-bf8b-382ddd68c77c",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
                         });
                 });
 
@@ -180,7 +180,7 @@ namespace NetCoreAxampleAuth.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("NetCoreAxampleAuth.Entities.Models.Product.Product", b =>
+            modelBuilder.Entity("NetCoreExampleAuth.Entities.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -227,7 +227,7 @@ namespace NetCoreAxampleAuth.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NetCoreAxampleAuth.Entities.Models.User", b =>
+            modelBuilder.Entity("NetCoreExampleAuth.Entities.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -302,7 +302,7 @@ namespace NetCoreAxampleAuth.Migrations
                         {
                             Id = "fb859dc0-1e55-4cae-821b-9e3e863757b4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4e5e92e2-9d00-459d-b9fe-701c8b6e7109",
+                            ConcurrencyStamp = "99784543-c63c-4a6d-8a81-24ab781230f4",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -310,7 +310,7 @@ namespace NetCoreAxampleAuth.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKRLTsFVnHEkVlQiaK2oXlpp0hW0PxW8xmCFFH8nnmyn56A8IJYS8LeoSmunC/ZSjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDO70tJRV+vau4JHA9AmY+P63Hc0ASlh23OvljrcKGoJy7JQthoL+3kn9mKaYV2Drg==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -321,7 +321,7 @@ namespace NetCoreAxampleAuth.Migrations
                         {
                             Id = "5441637f-6290-4925-8afa-dab9254ea8a8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e33c1ac4-0987-4779-9d77-3bdb19d01a5c",
+                            ConcurrencyStamp = "720fe847-7af3-4398-946c-83b4f069700c",
                             Email = "Manager@Manager.com",
                             EmailConfirmed = true,
                             FirstName = "Manager",
@@ -329,7 +329,7 @@ namespace NetCoreAxampleAuth.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@MANAGER.COM",
                             NormalizedUserName = "MANAGER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKiLuMaVEXV770fQzBxs+H9jrxjMnOS4n8p8LQQDQacruICtEoTec/fihQFaIidY9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL4KbXrlwcuzybNWP6Yx9ryJKA47gOlm4ESA7TO0kqdcK287WlSAeBOhNpR58iTkNg==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -349,7 +349,7 @@ namespace NetCoreAxampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("NetCoreAxampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,7 +358,7 @@ namespace NetCoreAxampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("NetCoreAxampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -373,7 +373,7 @@ namespace NetCoreAxampleAuth.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NetCoreAxampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -382,7 +382,7 @@ namespace NetCoreAxampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("NetCoreAxampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 
 
-namespace NetCoreAxampleAuth.Infrastructure.Helpers
+namespace NetCoreExampleAuth.Infrastructure.Helpers
 {
     public static class ContextHelper
     {

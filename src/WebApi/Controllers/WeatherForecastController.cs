@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetCoreAxampleAuth.Patterns.Models.WeatherForecast;
 
-namespace NetCoreAxampleAuth.Controllers
+namespace NetCoreExampleAuth.Controllers
 {
     [ApiController]
     [Route("[controller]")]

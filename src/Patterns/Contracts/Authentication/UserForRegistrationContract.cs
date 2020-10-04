@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NetCoreAxampleAuth.Patterns.Contracts.Authentication
+namespace NetCoreExampleAuth.Patterns.Contracts.Authentication
 {
     public class UserForRegistrationContract
     {
