@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreAxampleAuth.Models.Common;
@@ -47,7 +48,7 @@ namespace NetCoreAxampleAuth.Controllers
         /// <summary>
         /// Get product by Id
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="id" example="2">Id</param>
         /// <returns>Product</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace NetCoreAxampleAuth.Patterns.Models.Product
+namespace NetCoreAxampleAuth.Entities.Models.Product
 {
     /// <summary>
     /// Product
@@ -17,12 +17,14 @@ namespace NetCoreAxampleAuth.Patterns.Models.Product
         /// <summary>
         /// Just Id of product.
         /// </summary>
+        [Column("ProductId")]
         public int Id { get; set; }
 
         /// <summary>
         /// Product name
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Company name is a required field.")]
+        [MaxLength(80, ErrorMessage = "Maximum length for the Name is 80 characters.")]
         public string Name { get; set; }
 
         /// <summary>
@@ -36,7 +38,6 @@ namespace NetCoreAxampleAuth.Patterns.Models.Product
         /// </summary>
         public ProductColor Color { get; set; }
     }
-
     /// <summary>
     /// Color of product.
     /// </summary>
