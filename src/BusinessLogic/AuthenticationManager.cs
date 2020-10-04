@@ -1,8 +1,10 @@
 ﻿using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NetCoreExampleAuth.Entities.Models;
+using NetCoreExampleAuth.Patterns.Configs;
 using NetCoreExampleAuth.Patterns.Contracts.Authentication;
 using System;
 using System.Collections.Generic;
@@ -18,11 +20,13 @@ namespace NetCoreExampleAuth.BusinessLogic
     {
         private readonly UserManager<User> userManager;
         private readonly IConfiguration configuration;
+        IOptions<JwtSettings> jwtSettings;
         private User user;
-        public AuthenticationManager(UserManager<User> userManager, IConfiguration configuration)
+        public AuthenticationManager(UserManager<User> userManager, IConfiguration configuration, IOptions<JwtSettings> jwtSettings)
         {
             this.userManager = userManager;
             this.configuration = configuration;
+            this.jwtSettings = jwtSettings;
         }
 
         public async Task<bool> ValidateUser(UserForAuthenticationContract userForAuth)
@@ -44,7 +48,7 @@ namespace NetCoreExampleAuth.BusinessLogic
         /// <returns>Returns secret key as a byte array with the security algorithm.</returns>
         private SigningCredentials GetSigningCredentials()
         {
-            var secretKey = configuration.GetSection("JwtSettings").GetSection("secret").Value;
+            var secretKey = this.jwtSettings.Value.Secret;
             var key = Encoding.UTF8.GetBytes(secretKey); //TODO
             var secret = new SymmetricSecurityKey(key);
 
@@ -78,13 +82,12 @@ namespace NetCoreExampleAuth.BusinessLogic
         /// </summary>
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            var jwtSettings = this.configuration.GetSection("JwtSettings");
             var tokenOptions = new JwtSecurityToken
             (
-                issuer: jwtSettings.GetSection("validIssuer").Value,
-                audience: jwtSettings.GetSection("validAudience").Value,
+                issuer: this.jwtSettings.Value.ValidIssuer,
+                audience: this.jwtSettings.Value.ValidAudience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(this.jwtSettings.Value.Expires)),
                 signingCredentials: signingCredentials
             );
 

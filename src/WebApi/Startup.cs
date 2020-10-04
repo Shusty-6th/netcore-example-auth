@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NetCoreExampleAuth.BusinessLogic;
 using NetCoreExampleAuth.Infrastructure.Extensions;
+using NetCoreExampleAuth.Patterns.Configs;
 
 namespace NetCoreExampleAuth
 {
@@ -49,6 +50,9 @@ namespace NetCoreExampleAuth
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.ConfigureSwaggerDoc();
+
+
+            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
 
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }
