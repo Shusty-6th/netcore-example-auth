@@ -39,7 +39,7 @@ namespace NetCoreExampleAuth.Controllers
         /// Get all products
         /// </summary>
         /// <returns>Products</returns>
-        [Authorize]
+        [Authorize(Roles ="Administrator")]
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetAllProducts()
         {

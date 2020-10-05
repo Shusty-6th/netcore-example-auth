@@ -1,26 +1,27 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NetCoreExampleAuth.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace NetCoreExampleAuth.Entities.Configuration
 {
-    public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
+    public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
-        internal const string administratorRoleId = "7b5e8e61-093d-497f-8408-61162d399e8d";
-        internal const string managerRoleId = "3e489281-9523-44cc-8a56-01a77644aa52";
-        public void Configure(EntityTypeBuilder<IdentityRole> builder)
+        internal static readonly Guid administratorRoleId = Guid.NewGuid();
+        internal static readonly Guid managerRoleId = Guid.NewGuid();
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.HasData(
-            new IdentityRole
+            new Role
             {
                 Id = administratorRoleId,
                 Name = "Administrator",
                 NormalizedName = "ADMINISTRATOR"
             },
-            new IdentityRole
+            new Role
             {
                 Id = managerRoleId,
                 Name = "Manager",

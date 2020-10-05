@@ -6,6 +6,7 @@ namespace NetCoreExampleAuth.Patterns.Contracts.Authentication
 {
     public class UserLoginResponseContract
     {
+        public string UserName { get; set; }
         public string UserId { get; set; }
         public string UserFullName { get; set; }
 

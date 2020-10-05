@@ -5,9 +5,6 @@ using System.Text;
 
 namespace NetCoreExampleAuth.Entities.Models
 {
-    public class User : IdentityUser<Guid>
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
+    public class Role : IdentityRole<Guid>
+    { }
 }

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace NetCoreExampleAuth.Entities
 {
-    public class RepositoryContext : IdentityDbContext<User>
+    public class RepositoryContext : IdentityDbContext<User, Role, Guid>
     {
         public RepositoryContext(DbContextOptions options)
         : base(options)

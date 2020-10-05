@@ -9,13 +9,9 @@ using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using NetCoreExampleAuth.BusinessLogic;
 using NetCoreExampleAuth.Infrastructure.Extensions;
 using NetCoreExampleAuth.Patterns.Configs;
@@ -53,6 +49,7 @@ namespace NetCoreExampleAuth
 
 
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
+      
 
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }

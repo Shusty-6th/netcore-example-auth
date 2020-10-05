@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetCoreExampleAuth.Migrations
 {
-    public partial class CreateDb : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace NetCoreExampleAuth.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
@@ -25,7 +25,7 @@ namespace NetCoreExampleAuth.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -69,7 +69,7 @@ namespace NetCoreExampleAuth.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -90,7 +90,7 @@ namespace NetCoreExampleAuth.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -112,7 +112,7 @@ namespace NetCoreExampleAuth.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,8 +129,8 @@ namespace NetCoreExampleAuth.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,7 +153,7 @@ namespace NetCoreExampleAuth.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -174,8 +174,8 @@ namespace NetCoreExampleAuth.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "7b5e8e61-093d-497f-8408-61162d399e8d", "29a10e07-269f-4e1a-8a80-f97702416abf", "Administrator", "ADMINISTRATOR" },
-                    { "3e489281-9523-44cc-8a56-01a77644aa52", "df6e5872-00dd-4a96-bf8b-382ddd68c77c", "Manager", "MANAGER" }
+                    { new Guid("d9acc446-5d87-49c2-a643-2b56828f31af"), "ac5b450c-b1f1-46fe-ac01-8dcb1e975036", "Administrator", "ADMINISTRATOR" },
+                    { new Guid("1cb97995-432d-4a84-905d-eecd9592f350"), "659a1999-85d2-44b3-b417-4e7da56fdf28", "Manager", "MANAGER" }
                 });
 
             migrationBuilder.InsertData(
@@ -183,8 +183,8 @@ namespace NetCoreExampleAuth.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "fb859dc0-1e55-4cae-821b-9e3e863757b4", 0, "99784543-c63c-4a6d-8a81-24ab781230f4", "Admin@Admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEDO70tJRV+vau4JHA9AmY+P63Hc0ASlh23OvljrcKGoJy7JQthoL+3kn9mKaYV2Drg==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "admin" },
-                    { "5441637f-6290-4925-8afa-dab9254ea8a8", 0, "720fe847-7af3-4398-946c-83b4f069700c", "Manager@Manager.com", true, "Manager", "Manager", false, null, "MANAGER@MANAGER.COM", "MANAGER", "AQAAAAEAACcQAAAAEL4KbXrlwcuzybNWP6Yx9ryJKA47gOlm4ESA7TO0kqdcK287WlSAeBOhNpR58iTkNg==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "manager" }
+                    { new Guid("bb6e639a-71df-4dda-b88d-5f23266dd0cc"), 0, "ef6dfe06-46d4-4df4-95a7-87e40abd0dda", "Admin@Admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAECRTdeZj4zbOr16EhWDd8+JNuRcRxv+8gaPZUnG/u8OOM2AcY4RxVlpqbTdcqcEbtw==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "admin" },
+                    { new Guid("369312ab-b96a-4a09-97b2-37846440c81c"), 0, "5e28c3c6-e0cb-433e-956e-28e48a285b58", "Manager@Manager.com", true, "Manager", "Manager", false, null, "MANAGER@MANAGER.COM", "MANAGER", "AQAAAAEAACcQAAAAEKS+vpNGwVOuTzrnSP+KEsouUaTwXVBkwtmDUYJ9BTCdIufXz8TYIQ6Khm5sd0mcag==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "manager" }
                 });
 
             migrationBuilder.InsertData(
@@ -200,12 +200,12 @@ namespace NetCoreExampleAuth.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "fb859dc0-1e55-4cae-821b-9e3e863757b4", "7b5e8e61-093d-497f-8408-61162d399e8d" });
+                values: new object[] { new Guid("bb6e639a-71df-4dda-b88d-5f23266dd0cc"), new Guid("d9acc446-5d87-49c2-a643-2b56828f31af") });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "5441637f-6290-4925-8afa-dab9254ea8a8", "3e489281-9523-44cc-8a56-01a77644aa52" });
+                values: new object[] { new Guid("369312ab-b96a-4a09-97b2-37846440c81c"), new Guid("1cb97995-432d-4a84-905d-eecd9592f350") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

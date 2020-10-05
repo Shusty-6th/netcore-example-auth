@@ -23,11 +23,11 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
         {
             services.AddDbContext<RepositoryContext>(opts =>
                 opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b => b.MigrationsAssembly("WebApi")));
-        }
+        } 
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            var builder = services.AddIdentityCore<User>(o =>
+            var builder = services.AddIdentity<User, Role>(o =>
             {
                 o.Password.RequireDigit = true;
                 o.Password.RequireLowercase = false;
@@ -35,8 +35,11 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequiredLength = 6;
                 o.User.RequireUniqueEmail = true;
+
+                o.Lockout.AllowedForNewUsers = true;
+                o.Lockout.MaxFailedAccessAttempts = 5;
             });
-            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
 
             builder.AddEntityFrameworkStores<RepositoryContext>()
             .AddDefaultTokenProviders();

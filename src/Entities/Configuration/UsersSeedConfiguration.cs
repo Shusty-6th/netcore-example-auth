@@ -10,8 +10,8 @@ namespace NetCoreExampleAuth.Entities.Configuration
 {
     public class UsersSeedConfiguration : IEntityTypeConfiguration<User>
     {
-        internal const string adminId = "fb859dc0-1e55-4cae-821b-9e3e863757b4";
-        internal const string managerId = "5441637f-6290-4925-8afa-dab9254ea8a8";
+        internal static readonly Guid adminId = Guid.NewGuid();
+        internal static readonly Guid managerId = Guid.NewGuid();
 
         public void Configure(EntityTypeBuilder<User> builder)
         {

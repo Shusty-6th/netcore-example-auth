@@ -8,17 +8,17 @@ using System.Text;
 
 namespace NetCoreAxampleAuth.Entities.Configuration
 {
-    class UsersInRolesConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
+    class UsersInRolesConfiguration : IEntityTypeConfiguration<IdentityUserRole<Guid>>
     {
-        public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
+        public void Configure(EntityTypeBuilder<IdentityUserRole<Guid>> builder)
         {
-            IdentityUserRole<string> adminInRole = new IdentityUserRole<string>
+            IdentityUserRole<Guid> adminInRole = new IdentityUserRole<Guid>
             {
                 RoleId = RoleConfiguration.administratorRoleId,
                 UserId = UsersSeedConfiguration.adminId
             };
 
-            IdentityUserRole<string> managerInRole = new IdentityUserRole<string>
+            IdentityUserRole<Guid> managerInRole = new IdentityUserRole<Guid>
             {
                 RoleId = RoleConfiguration.managerRoleId,
                 UserId = UsersSeedConfiguration.managerId

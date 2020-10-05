@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace NetCoreExampleAuth.Models.Common
@@ -11,6 +12,7 @@ namespace NetCoreExampleAuth.Models.Common
         public int StatusCode { get; set; }
         public string Message { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string CorellationId { get; set; }
 
         public override string ToString()

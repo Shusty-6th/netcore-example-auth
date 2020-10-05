@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using NetCoreExampleAuth.Entities.Models;
+using NetCoreExampleAuth.Models.Common;
+using NetCoreExampleAuth.Patterns.Configs;
 using NetCoreExampleAuth.Patterns.Contracts.Authentication;
 
 namespace NetCoreExampleAuth.Controllers
@@ -20,10 +23,11 @@ namespace NetCoreExampleAuth.Controllers
         private readonly SignInManager<User> signInManager;
         private readonly IMapper mapper;
         private readonly IAuthenticationManager authManager;
+
         public AuthenticationController(
             IMapper mapper,
             UserManager<User> userManager,
-            //SignInManager<User> signInManager,
+            SignInManager<User> signInManager,
             IAuthenticationManager authManager
             )
         {
@@ -48,22 +52,39 @@ namespace NetCoreExampleAuth.Controllers
         /// <param name="userForAuthContract">username and password</param>
         /// <returns>info about logged user with token</returns>
         [HttpPost("login")]
-        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationContract userForAuthContract)
+        public async Task<ActionResult<UserLoginResponseContract>> Authenticate([FromBody] UserForAuthenticationContract userForAuthContract)
         {
-            //var res = await this.signInManager.PasswordSignInAsync(user.UserName, user.Password, false, true);
+            User user = await this.userManager.FindByNameAsync(userForAuthContract.UserName);
 
-            var user = await this.userManager.FindByNameAsync(userForAuthContract.UserName);
-
-            // Check if the user is in the database and password is correct.
-            if (!(user != null && await this.userManager.CheckPasswordAsync(user, userForAuthContract.Password)))
+            // no username in our base
+            if (user is null)
             {
-                return Unauthorized();
+                return Unauthorized(new ErrorDetails()
+                {
+                    StatusCode = StatusCodes.Status401Unauthorized,
+                    Message = "Wrong password or login."
+                });
             }
+            //userManager.lock
+            var passCheck = await this.signInManager.CheckPasswordSignInAsync(user, userForAuthContract.Password, true);
+
+            // Check password correct.
+            if (!passCheck.Succeeded)
+            {
+                int leftAttempts = userManager.Options.Lockout.MaxFailedAccessAttempts - user.AccessFailedCount;
+                return Unauthorized(new ErrorDetails()
+                {
+                    StatusCode = StatusCodes.Status401Unauthorized,
+                    Message = passCheck.IsLockedOut ? $"The account is blocked to {user.LockoutEnd}" : $"Wrong password or login. {leftAttempts} login attempts remaining."
+                });
+            }
+
             var roles = this.userManager.GetRolesAsync(user);
 
             UserLoginResponseContract res = new UserLoginResponseContract()
             {
-                UserId = user.Id,
+                UserName = user.UserName,
+                UserId = user.Id.ToString(),
                 UserFullName = $"{user.FirstName} {user.LastName}",
                 Token = await this.authManager.CreateToken(user),
                 Roles = (await roles).ToArray()
