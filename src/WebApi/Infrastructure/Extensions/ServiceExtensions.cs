@@ -36,8 +36,8 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
                 o.Password.RequiredLength = 6;
                 o.User.RequireUniqueEmail = true;
             });
-            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole),
-           builder.Services);
+            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
+
             builder.AddEntityFrameworkStores<RepositoryContext>()
             .AddDefaultTokenProviders();
         }
@@ -107,7 +107,7 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
                     In = ParameterLocation.Header,
                     Description = "Place to add JWT with Bearer",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
+                    Type = SecuritySchemeType.Http,
                     Scheme = "Bearer"
                 });
 
@@ -141,6 +141,5 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
                 // or .WithHeaders("accept", "contenttype")  
                 .AllowAnyHeader());
             });
-
     }
 }

@@ -21,7 +21,7 @@ namespace NetCoreExampleAuth.BusinessLogic
         private readonly UserManager<User> userManager;
         private readonly IConfiguration configuration;
         IOptions<JwtSettings> jwtSettings;
-        private User user;
+
         public AuthenticationManager(UserManager<User> userManager, IConfiguration configuration, IOptions<JwtSettings> jwtSettings)
         {
             this.userManager = userManager;
@@ -31,15 +31,15 @@ namespace NetCoreExampleAuth.BusinessLogic
 
         public async Task<bool> ValidateUser(UserForAuthenticationContract userForAuth)
         {
-            this.user = await this.userManager.FindByNameAsync(userForAuth.UserName);
+            var user = await this.userManager.FindByNameAsync(userForAuth.UserName);
 
-            return (this.user != null && await this.userManager.CheckPasswordAsync(this.user, userForAuth.Password));
+            return (user != null && await this.userManager.CheckPasswordAsync(user, userForAuth.Password));
         }
 
-        public async Task<string> CreateToken()
+        public async Task<string> CreateToken(User user)
         {
             var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims();
+            var claims = await GetClaims(user);
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
 
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
@@ -59,14 +59,14 @@ namespace NetCoreExampleAuth.BusinessLogic
         /// Creates a list of claims with the user name inside
         /// and all the roles the user belongs to.
         /// </summary>
-        private async Task<List<Claim>> GetClaims()
+        private async Task<List<Claim>> GetClaims(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, this.user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName)
             };
 
-            var roles = await this.userManager.GetRolesAsync(this.user);
+            var roles = await this.userManager.GetRolesAsync(user);
 
             foreach (var role in roles)
             {

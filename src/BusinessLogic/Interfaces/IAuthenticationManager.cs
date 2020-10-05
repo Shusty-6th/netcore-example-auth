@@ -1,4 +1,5 @@
-﻿using NetCoreExampleAuth.Patterns.Contracts.Authentication;
+﻿using NetCoreExampleAuth.Entities.Models;
+using NetCoreExampleAuth.Patterns.Contracts.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,6 @@ namespace BusinessLogic.Interfaces
     public interface IAuthenticationManager
     {
         Task<bool> ValidateUser(UserForAuthenticationContract userForAuth);
-        Task<string> CreateToken();
+        Task<string> CreateToken(User user);
     }
 }
