@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using NetCoreExampleAuth.Entities.Models;
 using NetCoreExampleAuth.Patterns.Contracts.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NetCoreExampleAuth.Domain.Core.Model;
 
 namespace NetCoreExampleAuth.Infrastructure.Mappers
 {

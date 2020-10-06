@@ -7,7 +7,8 @@ using Audit.WebApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreAxampleAuth.Patterns.Models.Product;
+using NetCoreExampleAuth.Domain.Core;
+using NetCoreExampleAuth.Domain.Core.Model;
 using NetCoreExampleAuth.Models.Common;
 
 namespace NetCoreExampleAuth.Controllers
@@ -16,35 +17,21 @@ namespace NetCoreExampleAuth.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        // mockup
-        private IList<Product> products = new List<Product> {
-                new Product() {
-                    Id = 1,
-                    Name = "Bike",
-                    Color = ProductColor.Blue
-                },
-                new Product() {
-                    Id = 2,
-                    Name = "Car",
-                    Color = ProductColor.Red
-                },
-                new Product() {
-                    Id = 3,
-                    Name = "Car",
-                    Color = ProductColor.Green,
-                    IsGoodQuality = true
-                },
-            };
+        private readonly IUnitOfWork uow;
+
+        public ProductController(IUnitOfWork uow)
+        {
+            this.uow = uow;
+        }
 
         /// <summary>
         /// Get all products
         /// </summary>
         /// <returns>Products</returns>
-        [Authorize(Roles ="Administrator")]
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetAllProducts()
         {
-            return Ok(products.AsEnumerable());
+            return Ok(uow.Products.GetAllProducts());
         }
 
         /// <summary>
@@ -57,19 +44,19 @@ namespace NetCoreExampleAuth.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Product> GetProductById(int id)
         {
-            var result = products.FirstOrDefault(p => p.Id == id);
+            var product = this.uow.Products.GetProductById(id);
+
+            if (product is null)
+            {
+                return NotFound();
+            }
 
             if (id < 1)
             {
                 throw new Exception("Bad id!"); // TODO: do something with anonymous exceptions.
             }
 
-            if (result is null)
-            {
-                return NotFound();
-            }
-
-            return result;
+            return product;
         }
 
         /// <summary>
@@ -97,6 +84,7 @@ namespace NetCoreExampleAuth.Controllers
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null or bad validating</response>      
         [HttpPost]
+        [Authorize(Roles = "Administrator,Moderator")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)] // TODO: Make ProducesResponseType Global Parameter or Automate
@@ -107,10 +95,10 @@ namespace NetCoreExampleAuth.Controllers
                 return BadRequest("You can add only good quality products to our store!"); //TODO: ProblemDetails factory
             }
 
-            product.Id = products.Count + 1;
-            products.Add(product);
+            var addedProduct = this.uow.Products.AddProduct(product);
+            this.uow.Complete();
 
-            return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
+            return CreatedAtAction(nameof(GetProductById), new { id = addedProduct.Id }, addedProduct);
 
             // not best practise return 201 without location header
             //return StatusCode(StatusCodes.Status201Created, product); 

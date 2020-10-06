@@ -1,4 +1,4 @@
-﻿using NetCoreExampleAuth.Entities.Models;
+﻿using NetCoreExampleAuth.Domain.Core.Model;
 using NetCoreExampleAuth.Patterns.Contracts.Authentication;
 using System;
 using System.Collections.Generic;

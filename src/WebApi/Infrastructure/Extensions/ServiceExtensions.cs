@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NetCoreExampleAuth.Entities;
-using NetCoreExampleAuth.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +12,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using NetCoreExampleAuth.Domain.Core.Model;
+using NetCoreExampleAuth.Domain.Persistence;
 
 namespace NetCoreExampleAuth.Infrastructure.Extensions
 {

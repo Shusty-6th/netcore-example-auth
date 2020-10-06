@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NetCoreExampleAuth.Entities.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace NetCoreAxampleAuth.Entities.Configuration
+namespace NetCoreExampleAuth.Domain.Persistence.Configuration
 {
     class UsersInRolesConfiguration : IEntityTypeConfiguration<IdentityUserRole<Guid>>
     {

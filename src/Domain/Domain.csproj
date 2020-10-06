@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>NetCoreExampleAuth.Entities</RootNamespace>
+    <RootNamespace>NetCoreExampleAuth.Domain</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

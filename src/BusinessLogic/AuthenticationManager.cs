@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NetCoreExampleAuth.Entities.Models;
 using NetCoreExampleAuth.Patterns.Configs;
 using NetCoreExampleAuth.Patterns.Contracts.Authentication;
 using System;
@@ -12,20 +11,18 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using NetCoreExampleAuth.Domain.Core.Model;
 
 namespace NetCoreExampleAuth.BusinessLogic
 {
-    // TODO: configuration => IOptions
     public class AuthenticationManager : IAuthenticationManager
     {
         private readonly UserManager<User> userManager;
-        private readonly IConfiguration configuration;
-        IOptions<JwtSettings> jwtSettings;
+        private readonly IOptions<JwtSettings> jwtSettings;
 
-        public AuthenticationManager(UserManager<User> userManager, IConfiguration configuration, IOptions<JwtSettings> jwtSettings)
+        public AuthenticationManager(UserManager<User> userManager, IOptions<JwtSettings> jwtSettings)
         {
             this.userManager = userManager;
-            this.configuration = configuration;
             this.jwtSettings = jwtSettings;
         }
 

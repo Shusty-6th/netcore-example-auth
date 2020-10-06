@@ -15,6 +15,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetCoreExampleAuth.BusinessLogic;
+using NetCoreExampleAuth.Domain.Core;
+using NetCoreExampleAuth.Domain.Core.Repositories;
+using NetCoreExampleAuth.Domain.Persistence;
+using NetCoreExampleAuth.Domain.Persistence.Repositories;
 using NetCoreExampleAuth.Infrastructure.Extensions;
 using NetCoreExampleAuth.Patterns.Configs;
 
@@ -55,6 +59,8 @@ namespace NetCoreExampleAuth
 
 
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +72,6 @@ namespace NetCoreExampleAuth
             }
 
 //            app.RegisterAuditNet(Configuration);
-
 
             app.ConfigureExceptionHandler();
 

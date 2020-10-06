@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using NetCoreAxampleAuth.Entities.Configuration;
-using NetCoreExampleAuth.Entities.Configuration;
-using NetCoreExampleAuth.Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using NetCoreExampleAuth.Domain.Core.Model;
+using NetCoreExampleAuth.Domain.Persistence.Configuration;
 
-namespace NetCoreExampleAuth.Entities
+namespace NetCoreExampleAuth.Domain.Persistence
 {
     public class RepositoryContext : IdentityDbContext<User, Role, Guid>
     {

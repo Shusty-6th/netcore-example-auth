@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using NetCoreExampleAuth.Entities.Models;
+using NetCoreExampleAuth.Domain.Core.Model;
 using NetCoreExampleAuth.Models.Common;
 using NetCoreExampleAuth.Patterns.Configs;
 using NetCoreExampleAuth.Patterns.Contracts.Authentication;

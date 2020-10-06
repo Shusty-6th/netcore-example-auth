@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace NetCoreExampleAuth.Entities.Models
+namespace NetCoreExampleAuth.Domain.Core.Model
 {
     /// <summary>
     /// Product
@@ -23,7 +19,7 @@ namespace NetCoreExampleAuth.Entities.Models
         /// <summary>
         /// Product name
         /// </summary>
-        [Required(ErrorMessage = "Company name is a required field.")]
+        [Required(ErrorMessage = "Name is a required field.")]
         [MaxLength(80, ErrorMessage = "Maximum length for the Name is 80 characters.")]
         public string Name { get; set; }
 

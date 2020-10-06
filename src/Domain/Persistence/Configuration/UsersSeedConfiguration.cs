@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NetCoreExampleAuth.Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using NetCoreExampleAuth.Domain.Core.Model;
 
-namespace NetCoreExampleAuth.Entities.Configuration
+namespace NetCoreExampleAuth.Domain.Persistence.Configuration
 {
     public class UsersSeedConfiguration : IEntityTypeConfiguration<User>
     {
