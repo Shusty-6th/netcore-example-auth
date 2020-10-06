@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Audit.WebApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetCoreAxampleAuth.Patterns.Models.WeatherForecast;
 
 namespace NetCoreExampleAuth.Controllers
 {
+    [AuditApi]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -22,6 +24,17 @@ namespace NetCoreExampleAuth.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+        }
+
+        [HttpGet("badAction")]
+        public IActionResult Error()
+        {
+            int a = 1;
+            int b = 0;
+
+            a = a / b;
+
+            return Ok(a);
         }
 
         [HttpGet]

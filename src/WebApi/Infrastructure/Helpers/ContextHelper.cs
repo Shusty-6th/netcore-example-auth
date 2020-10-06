@@ -9,7 +9,8 @@ namespace NetCoreExampleAuth.Infrastructure.Helpers
     {
         public static string GetCorellationId(this HttpContext context)
         {
-            return Activity.Current?.Id ?? context?.TraceIdentifier;
+            //return Activity.Current?.Id ?? context?.TraceIdentifier;
+            return context?.TraceIdentifier ?? Activity.Current?.Id ?? Guid.NewGuid().ToString();
         }
     }
 }

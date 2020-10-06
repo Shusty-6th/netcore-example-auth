@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Audit.WebApi;
 using AutoMapper;
 using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Authorization;

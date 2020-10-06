@@ -27,6 +27,7 @@ namespace NetCoreExampleAuth.Entities.Configuration
                 PhoneNumber = "XXXXXXXXXXXXX",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
+                LockoutEnabled = true,
                 SecurityStamp = new Guid().ToString("D"),
             };
 
@@ -44,6 +45,7 @@ namespace NetCoreExampleAuth.Entities.Configuration
                 PhoneNumber = "XXXXXXXXXXXXX",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
+                LockoutEnabled = true,
                 SecurityStamp = new Guid().ToString("D"),
             };
 

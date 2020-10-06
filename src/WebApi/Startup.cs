@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Audit.Elasticsearch.Providers;
+using Audit.WebApi;
 using AutoMapper;
 using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -49,7 +51,8 @@ namespace NetCoreExampleAuth
 
 
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
-      
+            services.Configure<ElasticSettings>(Configuration.GetSection("ElasticSettings"));
+
 
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }
@@ -61,6 +64,9 @@ namespace NetCoreExampleAuth
             {
                 app.UseDeveloperExceptionPage();
             }
+
+//            app.RegisterAuditNet(Configuration);
+
 
             app.ConfigureExceptionHandler();
 
