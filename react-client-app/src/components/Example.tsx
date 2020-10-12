@@ -33,7 +33,7 @@ export default observer(function Example() {
   return (
     <Container className={classes.root} >
       <Typography variant="h3" component="h2">
-        Welcome in React SPA APP!
+        Welcome in React SPA APP 🤩!
       </Typography>
       <Paper className={classes.paper}>
       <Typography className={classes.item} variant="h5" component="h3" color="primary">

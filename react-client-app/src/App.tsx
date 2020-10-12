@@ -16,6 +16,7 @@ import Example from "./components/Example";
 import Navbar from "./components/Navbar";
 import { observer } from "mobx-react";
 import Register from "./components/login/Register";
+import ProductList from "./components/products/ProductList";
 
 function App() {
   return (
@@ -24,14 +25,18 @@ function App() {
       <Navbar />
 
       <Switch>
-        <Route path="/home">
-          <Example />
-        </Route>
-        <Route path="/login">
+
+        <Route exact path="/login">
           <Login />
         </Route>
-        <Route path="/register">
+        <Route exact path="/register">
           <Register />
+        </Route>
+        <Route exact path="/products">
+          <ProductList />
+        </Route>
+        <Route path="/">
+          <Example />
         </Route>
 
         {/* <PrivateRoute path="/protected">

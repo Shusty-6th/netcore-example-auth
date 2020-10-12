@@ -10,7 +10,7 @@ import LinkRouteButton from "./common/LinkRouteButton";
 import { StoreContext } from "../stores/StoreContext";
 import { Chip } from "@material-ui/core";
 import { observer } from "mobx-react";
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,8 +37,8 @@ const Navbar = () => {
 
   const handleClickLogout = () => {
     const location = {
-      pathname: '/login',
-  };
+      pathname: "/login",
+    };
     logout();
     history.push(location);
   };
@@ -59,24 +59,25 @@ const Navbar = () => {
             Example SPA app
           </Typography>
 
-          <LinkRouteButton to="home">Public Page</LinkRouteButton>
-          <LinkRouteButton to="protected">Protected Page</LinkRouteButton>
+          <LinkRouteButton to="/">Home</LinkRouteButton>
+          <LinkRouteButton to="products">Products</LinkRouteButton>
 
           {user?.username ? (
-            <><Chip
-              className={classes.userLabel}
-              label={`Hello ${user.username}!`} />
+            <>
+              <Chip
+                className={classes.userLabel}
+                label={`Hello ${user.username}!`}
+              />
               <Chip
                 label="Logout"
                 clickable
                 color="primary"
                 onClick={handleClickLogout}
-                icon={<MeetingRoomIcon />} /></>
+                icon={<MeetingRoomIcon />}
+              />
+            </>
           ) : (
- 
-
-              <LinkRouteButton to="login">Login</LinkRouteButton>
-          
+            <LinkRouteButton to="login">Login</LinkRouteButton>
           )}
         </Toolbar>
       </AppBar>

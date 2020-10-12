@@ -10,8 +10,8 @@ using NetCoreExampleAuth.Domain.Persistence;
 namespace NetCoreExampleAuth.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20201005142238_Create")]
-    partial class Create
+    [Migration("20201012211954_create")]
+    partial class create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -105,13 +105,13 @@ namespace NetCoreExampleAuth.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("bb6e639a-71df-4dda-b88d-5f23266dd0cc"),
-                            RoleId = new Guid("d9acc446-5d87-49c2-a643-2b56828f31af")
+                            UserId = new Guid("915c2786-17e0-441f-9438-4a873996172b"),
+                            RoleId = new Guid("41ae194c-17f7-42ce-a4a9-4cd6432c5818")
                         },
                         new
                         {
-                            UserId = new Guid("369312ab-b96a-4a09-97b2-37846440c81c"),
-                            RoleId = new Guid("1cb97995-432d-4a84-905d-eecd9592f350")
+                            UserId = new Guid("6fafb6f2-149d-4410-b121-4c4d77dfdc63"),
+                            RoleId = new Guid("4f49a822-73ed-4996-80bc-a1533af0b0c2")
                         });
                 });
 
@@ -134,7 +134,7 @@ namespace NetCoreExampleAuth.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("NetCoreExampleAuth.Entities.Models.Product", b =>
+            modelBuilder.Entity("NetCoreExampleAuth.Domain.Core.Model.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,10 +178,24 @@ namespace NetCoreExampleAuth.Migrations
                             Color = 3,
                             IsGoodQuality = true,
                             Name = "Ball"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Color = 2,
+                            IsGoodQuality = true,
+                            Name = "T-shirt"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Color = 0,
+                            IsGoodQuality = true,
+                            Name = "Protein Juice"
                         });
                 });
 
-            modelBuilder.Entity("NetCoreExampleAuth.Entities.Models.Role", b =>
+            modelBuilder.Entity("NetCoreExampleAuth.Domain.Core.Model.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -211,21 +225,21 @@ namespace NetCoreExampleAuth.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d9acc446-5d87-49c2-a643-2b56828f31af"),
-                            ConcurrencyStamp = "ac5b450c-b1f1-46fe-ac01-8dcb1e975036",
+                            Id = new Guid("41ae194c-17f7-42ce-a4a9-4cd6432c5818"),
+                            ConcurrencyStamp = "4151f6a5-e063-4135-873c-b571d040c477",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = new Guid("1cb97995-432d-4a84-905d-eecd9592f350"),
-                            ConcurrencyStamp = "659a1999-85d2-44b3-b417-4e7da56fdf28",
+                            Id = new Guid("4f49a822-73ed-4996-80bc-a1533af0b0c2"),
+                            ConcurrencyStamp = "98c0ae57-32f8-4d8b-9adb-a0520b8a19a9",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
                 });
 
-            modelBuilder.Entity("NetCoreExampleAuth.Entities.Models.User", b =>
+            modelBuilder.Entity("NetCoreExampleAuth.Domain.Core.Model.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -299,17 +313,17 @@ namespace NetCoreExampleAuth.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bb6e639a-71df-4dda-b88d-5f23266dd0cc"),
+                            Id = new Guid("915c2786-17e0-441f-9438-4a873996172b"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef6dfe06-46d4-4df4-95a7-87e40abd0dda",
+                            ConcurrencyStamp = "69e44911-3551-4e61-a0d7-34fd637c5436",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
                             LastName = "Admin",
-                            LockoutEnabled = false,
+                            LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECRTdeZj4zbOr16EhWDd8+JNuRcRxv+8gaPZUnG/u8OOM2AcY4RxVlpqbTdcqcEbtw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDexor87eMSasaKxHrKHwjbpZiELkvkhvNe6P/gYRAxo8WqVCMviyCMO8fxTN3KjXQ==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -318,17 +332,17 @@ namespace NetCoreExampleAuth.Migrations
                         },
                         new
                         {
-                            Id = new Guid("369312ab-b96a-4a09-97b2-37846440c81c"),
+                            Id = new Guid("6fafb6f2-149d-4410-b121-4c4d77dfdc63"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5e28c3c6-e0cb-433e-956e-28e48a285b58",
+                            ConcurrencyStamp = "dac0d6bb-a56c-4956-8241-147354a58834",
                             Email = "Manager@Manager.com",
                             EmailConfirmed = true,
                             FirstName = "Manager",
                             LastName = "Manager",
-                            LockoutEnabled = false,
+                            LockoutEnabled = true,
                             NormalizedEmail = "MANAGER@MANAGER.COM",
                             NormalizedUserName = "MANAGER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKS+vpNGwVOuTzrnSP+KEsouUaTwXVBkwtmDUYJ9BTCdIufXz8TYIQ6Khm5sd0mcag==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHowMtgwttgaUKAM0jI4ogKyMik+PEbEt/ZG1Cux0pZSy44MrMbygwH9l2TC0rnPJw==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -339,7 +353,7 @@ namespace NetCoreExampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("NetCoreExampleAuth.Entities.Models.Role", null)
+                    b.HasOne("NetCoreExampleAuth.Domain.Core.Model.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -348,7 +362,7 @@ namespace NetCoreExampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Domain.Core.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -357,7 +371,7 @@ namespace NetCoreExampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Domain.Core.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -366,13 +380,13 @@ namespace NetCoreExampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("NetCoreExampleAuth.Entities.Models.Role", null)
+                    b.HasOne("NetCoreExampleAuth.Domain.Core.Model.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Domain.Core.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -381,7 +395,7 @@ namespace NetCoreExampleAuth.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("NetCoreExampleAuth.Entities.Models.User", null)
+                    b.HasOne("NetCoreExampleAuth.Domain.Core.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

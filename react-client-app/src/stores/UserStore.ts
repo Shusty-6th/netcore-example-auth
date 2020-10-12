@@ -3,8 +3,10 @@ import { authUser, UserLoginResponse } from "../services/UserService";
 import AppConfig from "../appconfig";
 
 export interface UserData {
-  id: string;
+  id:string;
   username: string;
+  userFullName: string;
+  roles: string[];
 }
 
 export default class UserStore {
@@ -20,6 +22,9 @@ export default class UserStore {
 
   @computed
   public get isUserLogged(){ return !!this.user?.username && !!this.authToken};
+
+  @computed
+  public get isModerator(){ return !!this.user?.roles?.some(r => r === "Moderator" || r === "Administrator") && this.isUserLogged};
 
   @action
   public logout = () =>{
@@ -44,6 +49,8 @@ export default class UserStore {
             this.user = {
               id: dataLogin.userId,
               username: dataLogin.userName,
+              userFullName: dataLogin.userFullName,
+              roles: dataLogin.roles,
             };
             this.authToken = dataLogin.token;
           });

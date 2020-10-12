@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetCoreExampleAuth.Migrations
 {
-    public partial class Create : Migration
+    public partial class create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -174,8 +174,8 @@ namespace NetCoreExampleAuth.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("d9acc446-5d87-49c2-a643-2b56828f31af"), "ac5b450c-b1f1-46fe-ac01-8dcb1e975036", "Administrator", "ADMINISTRATOR" },
-                    { new Guid("1cb97995-432d-4a84-905d-eecd9592f350"), "659a1999-85d2-44b3-b417-4e7da56fdf28", "Manager", "MANAGER" }
+                    { new Guid("41ae194c-17f7-42ce-a4a9-4cd6432c5818"), "4151f6a5-e063-4135-873c-b571d040c477", "Administrator", "ADMINISTRATOR" },
+                    { new Guid("4f49a822-73ed-4996-80bc-a1533af0b0c2"), "98c0ae57-32f8-4d8b-9adb-a0520b8a19a9", "Manager", "MANAGER" }
                 });
 
             migrationBuilder.InsertData(
@@ -183,8 +183,8 @@ namespace NetCoreExampleAuth.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("bb6e639a-71df-4dda-b88d-5f23266dd0cc"), 0, "ef6dfe06-46d4-4df4-95a7-87e40abd0dda", "Admin@Admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAECRTdeZj4zbOr16EhWDd8+JNuRcRxv+8gaPZUnG/u8OOM2AcY4RxVlpqbTdcqcEbtw==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "admin" },
-                    { new Guid("369312ab-b96a-4a09-97b2-37846440c81c"), 0, "5e28c3c6-e0cb-433e-956e-28e48a285b58", "Manager@Manager.com", true, "Manager", "Manager", false, null, "MANAGER@MANAGER.COM", "MANAGER", "AQAAAAEAACcQAAAAEKS+vpNGwVOuTzrnSP+KEsouUaTwXVBkwtmDUYJ9BTCdIufXz8TYIQ6Khm5sd0mcag==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "manager" }
+                    { new Guid("915c2786-17e0-441f-9438-4a873996172b"), 0, "69e44911-3551-4e61-a0d7-34fd637c5436", "Admin@Admin.com", true, "Admin", "Admin", true, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEDexor87eMSasaKxHrKHwjbpZiELkvkhvNe6P/gYRAxo8WqVCMviyCMO8fxTN3KjXQ==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "admin" },
+                    { new Guid("6fafb6f2-149d-4410-b121-4c4d77dfdc63"), 0, "dac0d6bb-a56c-4956-8241-147354a58834", "Manager@Manager.com", true, "Manager", "Manager", true, null, "MANAGER@MANAGER.COM", "MANAGER", "AQAAAAEAACcQAAAAEHowMtgwttgaUKAM0jI4ogKyMik+PEbEt/ZG1Cux0pZSy44MrMbygwH9l2TC0rnPJw==", "XXXXXXXXXXXXX", true, "00000000-0000-0000-0000-000000000000", false, "manager" }
                 });
 
             migrationBuilder.InsertData(
@@ -194,18 +194,20 @@ namespace NetCoreExampleAuth.Migrations
                 {
                     { 1, 2, true, "Bike" },
                     { 2, 1, false, "Jogging pants" },
-                    { 3, 3, true, "Ball" }
+                    { 3, 3, true, "Ball" },
+                    { 4, 2, true, "T-shirt" },
+                    { 5, 0, true, "Protein Juice" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { new Guid("bb6e639a-71df-4dda-b88d-5f23266dd0cc"), new Guid("d9acc446-5d87-49c2-a643-2b56828f31af") });
+                values: new object[] { new Guid("915c2786-17e0-441f-9438-4a873996172b"), new Guid("41ae194c-17f7-42ce-a4a9-4cd6432c5818") });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { new Guid("369312ab-b96a-4a09-97b2-37846440c81c"), new Guid("1cb97995-432d-4a84-905d-eecd9592f350") });
+                values: new object[] { new Guid("6fafb6f2-149d-4410-b121-4c4d77dfdc63"), new Guid("4f49a822-73ed-4996-80bc-a1533af0b0c2") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

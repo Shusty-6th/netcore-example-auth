@@ -16,6 +16,6 @@ Example .net core 3 WebApi with
  * :heavy_check_mark: login user (return JWT)
 * logging
 * :heavy_check_mark: Swagger
-* :x: Sample SPA application (REACT) using API
+* :heavy_check_mark: Sample SPA application (REACT) using API
   * jwt usage
 * ...

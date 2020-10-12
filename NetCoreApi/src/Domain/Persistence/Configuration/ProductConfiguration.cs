@@ -29,6 +29,20 @@ namespace NetCoreExampleAuth.Domain.Persistence.Configuration
                     Name = "Ball",
                     Color = ProductColor.Green,
                     IsGoodQuality = true
+                },
+                new Product()
+                {
+                    Id = 4,
+                    Name = "T-shirt",
+                    Color = ProductColor.Blue,
+                    IsGoodQuality = true
+                },
+                new Product()
+                {
+                    Id = 5,
+                    Name = "Protein Juice",
+                    Color = ProductColor.None,
+                    IsGoodQuality = true
                 }
             );
         }

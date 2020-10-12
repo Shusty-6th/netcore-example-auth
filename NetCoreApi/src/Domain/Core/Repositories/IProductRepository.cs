@@ -13,5 +13,7 @@ namespace NetCoreExampleAuth.Domain.Core.Repositories
         Product GetProductById(int id);
 
         Product AddProduct(Product product);
+
+        void RemoveProduct(Product product);
     }
 }

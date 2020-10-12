@@ -24,12 +24,17 @@ namespace NetCoreExampleAuth.Domain.Persistence.Repositories
 
         public Product GetProductById(int id)
         {
-            return this.Context.Products.Find();
+            return this.Context.Products.Find(id);
         }
 
         public Product AddProduct(Product product)
         {
             return this.Context.Products.Add(product).Entity;
+        }
+
+        public void RemoveProduct(Product product)
+        {
+            this.Context.Products.Remove(product);
         }
     }
 }

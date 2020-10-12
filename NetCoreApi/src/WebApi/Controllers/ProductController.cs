@@ -104,5 +104,34 @@ namespace NetCoreExampleAuth.Controllers
             // not best practise return 201 without location header
             //return StatusCode(StatusCodes.Status201Created, product); 
         }
+
+        /// <summary>
+        /// Remowe Product by id
+        /// </summary>
+        /// <remarks>
+        /// <returns>remove status</returns>
+        /// <response code="200">When product is deleted</response>
+        /// <response code="400">If the item is null or bad validating</response>      
+        /// <response code="404">Product not found</response> 
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator,Moderator")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)] // TODO: Make ProducesResponseType Global Parameter or Automate
+        public IActionResult Post([FromRoute] int id)
+        {
+            var product = this.uow.Products.GetProductById(id);
+
+            if (product is null)
+            {
+                return NotFound();
+            }
+
+            this.uow.Products.RemoveProduct(product);
+            this.uow.Complete();
+
+            return Ok();
+        }
     }
 }
