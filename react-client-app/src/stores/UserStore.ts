@@ -1,4 +1,4 @@
-import { observable, action, makeObservable } from "mobx";
+import { observable, action, makeObservable, computed } from "mobx";
 import { authUser, UserLoginResponse } from "../services/UserService";
 import AppConfig from "../appconfig";
 
@@ -16,22 +16,19 @@ export default class UserStore {
   user: UserData = {} as UserData;
 
   @observable
-  public authToken: string  = 'null';
-  
+  public authToken: string | null = null;
+
+  @computed
+  public get isUserLogged(){ return !!this.user?.username && !!this.authToken};
 
   @action
-  test = () => {
-    this.user = {
-      ...this.user,
-      username: "test",
-    };
-
-    this.authToken = "testttt auth";
-  };
+  public logout = () =>{
+    this.user.username = '';
+    this.authToken = null;
+  }
 
   @action
   authorizeUser = (login: string, password: string) => {
-    // authUser(login, password);
 
     fetch(AppConfig.apiUrl + "/api/authentication/login", {
       method: "POST",

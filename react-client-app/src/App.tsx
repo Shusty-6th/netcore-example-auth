@@ -15,6 +15,7 @@ import Login from "./components/login/Login";
 import Example from "./components/Example";
 import Navbar from "./components/Navbar";
 import { observer } from "mobx-react";
+import Register from "./components/login/Register";
 
 function App() {
   return (
@@ -23,12 +24,16 @@ function App() {
       <Navbar />
 
       <Switch>
-        <Route path="/public">
+        <Route path="/home">
           <Example />
         </Route>
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+
         {/* <PrivateRoute path="/protected">
         <Example />
       </PrivateRoute> */}

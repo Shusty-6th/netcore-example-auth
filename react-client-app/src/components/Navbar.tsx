@@ -10,6 +10,8 @@ import LinkRouteButton from "./common/LinkRouteButton";
 import { StoreContext } from "../stores/StoreContext";
 import { Chip } from "@material-ui/core";
 import { observer } from "mobx-react";
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,15 +24,24 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
-    userLabel:{
-        marginLeft: theme.spacing(4),
-    }
+    userLabel: {
+      marginLeft: theme.spacing(4),
+    },
   })
 );
 
 const Navbar = () => {
   const classes = useStyles();
-  const {user} = useContext(StoreContext).userStore;
+  const history = useHistory();
+  const { user, logout } = useContext(StoreContext).userStore;
+
+  const handleClickLogout = () => {
+    const location = {
+      pathname: '/login',
+  };
+    logout();
+    history.push(location);
+  };
 
   return (
     <div className={classes.root}>
@@ -48,18 +59,29 @@ const Navbar = () => {
             Example SPA app
           </Typography>
 
-          <LinkRouteButton to="public">Public Page</LinkRouteButton>
+          <LinkRouteButton to="home">Public Page</LinkRouteButton>
           <LinkRouteButton to="protected">Protected Page</LinkRouteButton>
 
           {user?.username ? (
-             <Chip className={classes.userLabel} label={`Hello ${user.username}!`}/>
+            <><Chip
+              className={classes.userLabel}
+              label={`Hello ${user.username}!`} />
+              <Chip
+                label="Logout"
+                clickable
+                color="primary"
+                onClick={handleClickLogout}
+                icon={<MeetingRoomIcon />} /></>
           ) : (
-            <LinkRouteButton to="login">Login</LinkRouteButton>
+ 
+
+              <LinkRouteButton to="login">Login</LinkRouteButton>
+          
           )}
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
 
 export default observer(Navbar);

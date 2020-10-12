@@ -1,13 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,6 +14,7 @@ import { RootStore } from "../../stores/RootStore";
 import { StoreContext } from "../../stores/StoreContext";
 import AppConfig from "../../appconfig";
 import { observer } from "mobx-react";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,10 +37,22 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const classes = useStyles();
+  const history = useHistory();
 
   const [login, setlogin] = useState("");
   const [password, setpassword] = useState("");
   const {userStore} = useContext(StoreContext);
+
+  const {isUserLogged} = userStore;
+
+  useEffect(() => {
+    if(isUserLogged){
+      const location = {
+        pathname: '/home',
+    };
+      history.push(location);
+    }
+  })
 
   const handleOnChangeLogin = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setlogin(e.target.value);
@@ -57,15 +67,17 @@ function Login() {
   };
 
   const handleOnClickRegister = ()=>{
-      userStore.test();
-
-
+    userStore.authorizeUser("jan", "ASDasd123!");
+  //   const location = {
+  //     pathname: '/register',
+  // };
+  //   history.push(location);
   };
 
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <VpnKeyIcon />
