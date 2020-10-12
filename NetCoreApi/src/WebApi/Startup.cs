@@ -36,13 +36,13 @@ namespace NetCoreExampleAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureSqlContext(Configuration);
             services.AddAuthentication();
             services.ConfigureIdentity();
 
             // Authentication configuration (JWT)
             services.ConfigureJWT(Configuration);
-
-            services.ConfigureSqlContext(Configuration);
+                       
 
             services.ConfigureCors();
 

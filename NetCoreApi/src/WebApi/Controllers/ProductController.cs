@@ -14,6 +14,7 @@ using NetCoreExampleAuth.Models.Common;
 namespace NetCoreExampleAuth.Controllers
 {
     [Route("api/Product")]
+    [Authorize]
     [ApiController]
     public class ProductController : ControllerBase
     {

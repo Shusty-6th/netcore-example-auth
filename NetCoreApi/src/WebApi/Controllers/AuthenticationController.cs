@@ -66,7 +66,7 @@ namespace NetCoreExampleAuth.Controllers
                     Message = "Wrong password or login."
                 });
             }
-            //userManager.lock
+
             var passCheck = await this.signInManager.CheckPasswordSignInAsync(user, userForAuthContract.Password, true);
 
             // Check password correct.
@@ -80,7 +80,7 @@ namespace NetCoreExampleAuth.Controllers
                 });
             }
 
-            var roles = this.userManager.GetRolesAsync(user);
+            var roles = await this.userManager.GetRolesAsync(user);
 
             UserLoginResponseContract res = new UserLoginResponseContract()
             {
@@ -88,7 +88,7 @@ namespace NetCoreExampleAuth.Controllers
                 UserId = user.Id.ToString(),
                 UserFullName = $"{user.FirstName} {user.LastName}",
                 Token = await this.authManager.CreateToken(user),
-                Roles = (await roles).ToArray()
+                Roles = roles.ToArray()
             };
 
             return Ok(res);
