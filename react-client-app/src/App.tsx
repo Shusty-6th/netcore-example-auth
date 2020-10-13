@@ -17,6 +17,7 @@ import Navbar from "./components/Navbar";
 import { observer } from "mobx-react";
 import Register from "./components/login/Register";
 import ProductList from "./components/products/ProductList";
+import Chat from "./components/chat/Chat";
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route exact path="/products">
           <ProductList />
+        </Route>
+        <Route exact path="/chat">
+          <Chat />
         </Route>
         <Route path="/">
           <Example />

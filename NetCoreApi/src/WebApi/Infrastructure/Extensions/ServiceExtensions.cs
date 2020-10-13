@@ -137,12 +137,14 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
             {
                 options.AddPolicy("CorsPolicy", builder =>
                 builder
-                // or .WithOrigins("https://specificDomain.com")
+                 //.WithOrigins("http://localhost:3000")
                 .AllowAnyOrigin()
                 // or .WithMethods("GET", "POST", "DELETE", "PUT") 
                 .AllowAnyMethod()
+                 .DisallowCredentials()
                 // or .WithHeaders("accept", "contenttype")  
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                );
             });
     }
 }

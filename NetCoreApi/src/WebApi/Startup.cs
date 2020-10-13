@@ -20,6 +20,7 @@ using NetCoreExampleAuth.Domain.Core.Repositories;
 using NetCoreExampleAuth.Domain.Persistence;
 using NetCoreExampleAuth.Domain.Persistence.Repositories;
 using NetCoreExampleAuth.Infrastructure.Extensions;
+using NetCoreExampleAuth.Infrastructure.Hubs;
 using NetCoreExampleAuth.Patterns.Configs;
 
 namespace NetCoreExampleAuth
@@ -36,6 +37,17 @@ namespace NetCoreExampleAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.ConfigureCors();
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowCredentials();
+                }));
+
             services.ConfigureSqlContext(Configuration);
             services.AddAuthentication();
             services.ConfigureIdentity();
@@ -44,7 +56,8 @@ namespace NetCoreExampleAuth
             services.ConfigureJWT(Configuration);
                        
 
-            services.ConfigureCors();
+            
+            services.AddSignalR();
 
             services.AddControllers();
 
@@ -96,8 +109,17 @@ namespace NetCoreExampleAuth
                 endpoints.MapControllers();
             });
 
+
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chat");
+            });
+
             // swagger
             app.UseSwaggerWithUi();
+
+
         }
     }
 }
