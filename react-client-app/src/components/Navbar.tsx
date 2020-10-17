@@ -61,6 +61,7 @@ const Navbar = () => {
 
           <LinkRouteButton to="/">Home</LinkRouteButton>
           <LinkRouteButton to="products">Products</LinkRouteButton>
+          <LinkRouteButton to="chat">Chat</LinkRouteButton>
 
           {user?.username ? (
             <>

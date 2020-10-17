@@ -1,53 +1,126 @@
 import { HubConnectionBuilder } from "@aspnet/signalr";
 import { HubConnection } from "@aspnet/signalr/dist/esm/HubConnection";
-import { Button, FilledInput, Input, InputLabel, TextField } from "@material-ui/core";
-import React, { ReactElement, useEffect, useState } from "react";
+import { Button, List, makeStyles, Paper, TextField } from "@material-ui/core";
+import moment from "moment";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
+import AppConfig from "../../appconfig";
+import { StoreContext } from "../../stores/StoreContext";
+import ChatMessage from "./ChatMessage";
 
-interface Props {}
+const useStyles = makeStyles((theme) => ({
+  main: {
+    marginTop: theme.spacing(4),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  box: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: theme.spacing(4),
+  },
+  messagebox: {
+    width: 450,
+    maxHeight: 500,
+  },
+  inpuitMessage: {
+    width: "100%",
+  },
+}));
 
-function Chat({}: Props): ReactElement {
-  const [hubConnection, sethubConnection] = useState<HubConnection>(
-    new HubConnectionBuilder().withUrl("https://localhost:44328/chat").build()
+interface ChatMessageModel {
+  message: string;
+  user: string;
+  time: string;
+}
+
+const defaultMessages: ChatMessageModel[] = [
+  {
+    message: "Chat 💬 with other website users & feel power of websockets",
+    user: "Bot",
+    time: moment().format("HH:mm:ss"),
+  },
+];
+
+function Chat(): ReactElement {
+  const classes = useStyles();
+
+  const [hubConnection] = useState<HubConnection>(
+    new HubConnectionBuilder().withUrl(AppConfig.apiUrl + "/chat").build()
   );
-  const [messages, setmessages] = useState<String[]>([]);
+  const { user } = useContext(StoreContext).userStore;
 
-  const [cahtMess, setcahtMess] = useState('')
+  const [messages, setmessages] = useState<ChatMessageModel[]>(defaultMessages);
+
+  const [chatMessage, setChatMessage] = useState("");
+  const [error, setError] = useState("");
+  const nick = user?.userFullName || "Anonymous";
 
   useEffect(() => {
     hubConnection
       .start()
       .then(() => console.log("Connection started!"))
-      .catch((err) => console.log("Error while establishing connection :("));
+      .catch(() => console.log("Error while establishing connection :("));
 
-    hubConnection.on(
-      "sendToAll",
-      (nick , receivedMessage ) => {
-        const text = `${receivedMessage}`;
+    hubConnection.on("sendToAll", (user, message, time) => {
+      setmessages((prev) => prev.concat({ message, user, time }));
+    });
 
-        const messages2 = messages.concat(text);
-        // setmessages(messages2);
-
-        setmessages((prev) => prev.concat(text));
-      }
-    );
-
-    return () => {};
-  }, []);
+    return () => {
+      hubConnection.stop();
+    };
+  }, [hubConnection]);
 
   const sendMessage = () => {
-    hubConnection
-      .invoke("sendToAll", cahtMess, cahtMess)
-      .catch((err) => console.error(err));
-
-    // this.setState({ message: "" });
+    if (validate(chatMessage)) {
+      hubConnection
+        .invoke("sendToAll", nick, chatMessage)
+        .then(() => {
+          setChatMessage("");
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
-  const messegesComponents = messages.map((m, i) => <p key={i}>{m}</p>);
+  const handleOnPressedEnter = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChatMessage(e.target.value);
+    validate(e.target.value);
+  };
+
+  const validate = (message: string): boolean => {
+    const errorMessage = message ? "" : "Write something.";
+    setError(errorMessage);
+    return !errorMessage;
+  };
+
+  const messegesComponents = messages.map((m, i) => (
+    <ChatMessage key={i} nick={m.user} message={m.message} time={m.time} />
+  ));
+
   return (
-    <div>
-        <TextField onChange={e=>{setcahtMess(e.target.value)}}>{cahtMess}</TextField>
-      <Button onClick={sendMessage}>Send message</Button>
-      {messegesComponents}
+    <div className={classes.main}>
+      <Paper className={classes.box}>
+        <TextField
+          error={!!error}
+          helperText={error}
+          onChange={handleChange}
+          onKeyUp={handleOnPressedEnter}
+          className={classes.inpuitMessage}
+          value={chatMessage}
+        />
+        <Button onClick={sendMessage}>Send message</Button>
+
+        <List className={classes.messagebox} style={{ overflow: "auto" }}>
+          {messegesComponents}
+        </List>
+      </Paper>
     </div>
   );
 }

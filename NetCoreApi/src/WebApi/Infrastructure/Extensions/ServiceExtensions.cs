@@ -23,7 +23,7 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
         {
             services.AddDbContext<RepositoryContext>(opts =>
                 opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b => b.MigrationsAssembly("WebApi")));
-        } 
+        }
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
@@ -137,14 +137,17 @@ namespace NetCoreExampleAuth.Infrastructure.Extensions
             {
                 options.AddPolicy("CorsPolicy", builder =>
                 builder
-                 //.WithOrigins("http://localhost:3000")
-                .AllowAnyOrigin()
+                //.WithOrigins("http://localhost:3000")
+                //.AllowAnyOrigin()
+                .SetIsOriginAllowed((host) => true)
                 // or .WithMethods("GET", "POST", "DELETE", "PUT") 
                 .AllowAnyMethod()
-                 .DisallowCredentials()
                 // or .WithHeaders("accept", "contenttype")  
                 .AllowAnyHeader()
+                // or .DisallowCredentials()
+                .AllowCredentials()
                 );
             });
+
     }
 }

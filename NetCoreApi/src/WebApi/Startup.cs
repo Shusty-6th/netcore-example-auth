@@ -37,16 +37,8 @@ namespace NetCoreExampleAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.ConfigureCors();
+            services.ConfigureCors();
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-                builder =>
-                {
-                    builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .SetIsOriginAllowed((host) => true)
-                        .AllowCredentials();
-                }));
 
             services.ConfigureSqlContext(Configuration);
             services.AddAuthentication();
@@ -54,8 +46,6 @@ namespace NetCoreExampleAuth
 
             // Authentication configuration (JWT)
             services.ConfigureJWT(Configuration);
-                       
-
             
             services.AddSignalR();
 
@@ -107,19 +97,11 @@ namespace NetCoreExampleAuth
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-
-
-
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<ChatHub>("/chat");
             });
 
             // swagger
             app.UseSwaggerWithUi();
-
-
         }
     }
 }
