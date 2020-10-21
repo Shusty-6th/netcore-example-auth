@@ -1,8 +1,17 @@
 import { HubConnectionBuilder } from "@aspnet/signalr";
 import { HubConnection } from "@aspnet/signalr/dist/esm/HubConnection";
-import { Button, List, makeStyles, Paper, TextField } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  List,
+  makeStyles,
+  Paper,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import moment from "moment";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
+import { useRef } from "react";
 import AppConfig from "../../appconfig";
 import { StoreContext } from "../../stores/StoreContext";
 import ChatMessage from "./ChatMessage";
@@ -21,11 +30,21 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
   },
   messagebox: {
-    width: 450,
-    maxHeight: 500,
+    paddingTop: 0,
+    boxShadow: "inset 5px 5px 15px 5px rgba(0,0,0,0)",
   },
   inpuitMessage: {
     width: "100%",
+  },
+  chatBox: {
+    width: 450,
+    maxHeight: 400,
+    minHeight: 400,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    backgroundColor: theme.palette.background.default,
+    boxShadow:
+      "inset rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, inset rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, inset rgba(0, 0, 0, 0.12) 0px 1px 8px 0px",
   },
 }));
 
@@ -37,7 +56,8 @@ interface ChatMessageModel {
 
 const defaultMessages: ChatMessageModel[] = [
   {
-    message: "Chat 💬 with other website users & feel power of websockets",
+    message:
+      "Chat 💬 with other website users & feel power of websockets. You can also open the page in a different browser and chat from both!",
     user: "Bot",
     time: moment().format("HH:mm:ss"),
   },
@@ -56,6 +76,14 @@ function Chat(): ReactElement {
   const [chatMessage, setChatMessage] = useState("");
   const [error, setError] = useState("");
   const nick = user?.userFullName || "Anonymous";
+
+  const box = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    if (box.current) {
+      box.current.scrollTop = box.current?.scrollHeight;
+    }
+  }, [messages]);
 
   useEffect(() => {
     hubConnection
@@ -107,6 +135,17 @@ function Chat(): ReactElement {
   return (
     <div className={classes.main}>
       <Paper className={classes.box}>
+        <Typography color="primary" variant="h4" component="h5">
+          Chat Box
+        </Typography>
+        <Box
+          {...{ ref: box }}
+          boxShadow="3"
+          className={classes.chatBox}
+          overflow="auto"
+        >
+          <List className={classes.messagebox}>{messegesComponents}</List>
+        </Box>
         <TextField
           error={!!error}
           helperText={error}
@@ -114,12 +153,9 @@ function Chat(): ReactElement {
           onKeyUp={handleOnPressedEnter}
           className={classes.inpuitMessage}
           value={chatMessage}
+          autoFocus
         />
         <Button onClick={sendMessage}>Send message</Button>
-
-        <List className={classes.messagebox} style={{ overflow: "auto" }}>
-          {messegesComponents}
-        </List>
       </Paper>
     </div>
   );
