@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/netcore-api-and-client-demo/static/css/main.5f361e03.chunk.css",
+    "main.js": "/netcore-api-and-client-demo/static/js/main.e77c8c15.chunk.js",
+    "main.js.map": "/netcore-api-and-client-demo/static/js/main.e77c8c15.chunk.js.map",
+    "runtime-main.js": "/netcore-api-and-client-demo/static/js/runtime-main.f877470d.js",
+    "runtime-main.js.map": "/netcore-api-and-client-demo/static/js/runtime-main.f877470d.js.map",
+    "static/js/2.3e826af4.chunk.js": "/netcore-api-and-client-demo/static/js/2.3e826af4.chunk.js",
+    "static/js/2.3e826af4.chunk.js.map": "/netcore-api-and-client-demo/static/js/2.3e826af4.chunk.js.map",
+    "index.html": "/netcore-api-and-client-demo/index.html",
+    "precache-manifest.6ac947d21234edcea3c342e72c03341f.js": "/netcore-api-and-client-demo/precache-manifest.6ac947d21234edcea3c342e72c03341f.js",
+    "service-worker.js": "/netcore-api-and-client-demo/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/netcore-api-and-client-demo/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.3e826af4.chunk.js.LICENSE.txt": "/netcore-api-and-client-demo/static/js/2.3e826af4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f877470d.js",
+    "static/js/2.3e826af4.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.e77c8c15.chunk.js"
+  ]
+}
